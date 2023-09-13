@@ -7,29 +7,20 @@
     a.aggiungiamo la classe hide all'elemento corrente
     b. incrementiamo il contatore
     c. tolgo la class hide all'elemento corrente
-    8. aggiungiamo di default al bottone down di inizio pagina la class hide
-    9.aggiungiamo al click del bottoneavanti rimuoviamo la classe hide al bottoneIndietro
-    10.nell'ultimo elemento del mia array applichiamo al bottoneAvanti la classe hide
-    11.
-
-
-
-
-
-
+  8. aggiungiamo di default al bottone down di inizio pagina la class hide
+  9.aggiungiamo al click del bottoneavanti rimuoviamo la classe hide al bottoneIndietro
+  10.nell'ultimo elemento del mia array applichiamo al bottoneAvanti la classe hide
 */
 
 
 //variabili
 const itemsWrapper = document.querySelector('.items-wrapper');
+const imageWrapper = document.querySelector('.box-custom');
 
 
 //5.
 const btnAvanti =    document.querySelector('.up');
 const btnIndietro =  document.querySelector('.down');
-
-//8.
-btnIndietro.classList.add('hide');
 
 //.2
 const immaginiList = [
@@ -47,51 +38,58 @@ let contaImg = 0;
 for(let i = 0; i < immaginiList.length; i++){
   const immagine = immaginiList[i];
   
-  itemsWrapper.innerHTML += `<img src="${immagine}" class="oggetto hide">`
+  itemsWrapper.innerHTML += `<img src="${immagine}" class="oggetto hide">`;
+  imageWrapper.innerHTML += `<img src="${immagine}" class="small ">`;
+
 }
 
 //3.
 let oggettoColl = document.getElementsByClassName('oggetto');
+let imageColl = document.getElementsByClassName('small');
 
 console.log(oggettoColl[0]);
 
 //4.
 oggettoColl[contaImg].classList.remove('hide');
+imageColl[contaImg].classList.add('active');
 
 //6.
 btnAvanti.addEventListener('click', function(){
-  //a.
-  oggettoColl[contaImg].classList.add('hide');
-  //b.
-  contaImg++;
-  //c.
-  oggettoColl[contaImg].classList.remove('hide');
-
-  //9.
-  btnIndietro.classList.remove('hide')
-  // controllo se il mio contaImg è uguale all'ultimo elemento aggiungo al bottoneavanti la classe hide
-  if(contaImg === oggettoColl.length - 1){
-    btnAvanti.classList.add('hide')
-  }
-
-})
-//7.
-btnIndietro.addEventListener('click', function(){
-  //a.
-  oggettoColl[contaImg].classList.add('hide');
-  //b.
-  contaImg--;
-  //c.
-  oggettoColl[contaImg].classList.remove('hide');
   
-  //10.
-  btnAvanti.classList.remove('hide');
-
-    // controllo se il mio contaImg è uguale al primo elemento aggiungo al bottoneIndietro la classe hide
-  if(contaImg === 0){
-    btnIndietro.classList.add('hide');
+  oggettoColl[contaImg].classList.add('hide');
+  imageColl[contaImg].classList.remove('active');
+  
+  
+  if(contaImg == 0){
+  
+    contaImg = oggettoColl.length -1;
+    
+  }else{
+    contaImg--;
   }
-  })
+  
+  
+  oggettoColl[contaImg].classList.remove('hide');
+  imageColl[contaImg].classList.add('active');
+
+});
+
+
+btnIndietro.addEventListener('click', function(){
+  
+  oggettoColl[contaImg].classList.add('hide');
+  imageColl[contaImg].classList.remove('active');
+  
+    if (contaImg < oggettoColl.length - 1){
+      contaImg++;
+    }else{
+      contaImg = 0;
+    }
+  
+  oggettoColl[contaImg].classList.remove('hide');
+  imageColl[contaImg].classList.add('active');
+
+});
 
 
 
